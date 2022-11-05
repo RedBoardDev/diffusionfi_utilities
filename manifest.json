@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Diffusion.fi utilities",
+    "version": "1.0",
+    "description": "add some utilities for diffusion.fi",
+    "content_scripts": [{
+      "js": ["js/script.js"],
+      "css": [ "css/style.css" ],
+      "matches": ["https://app.diffusion.fi/*"]
+    }]
+}
