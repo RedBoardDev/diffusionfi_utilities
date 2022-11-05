@@ -19,7 +19,8 @@ function checkPageUrl(strInd, strRe) {
 }
 
 function pageSwap() {
-    alert("SWAP PAGE");
+    create50PercentsButton(document);
+    button50Percents(document);
 }
 
 function pageFarm() {

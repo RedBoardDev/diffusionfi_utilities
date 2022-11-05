@@ -4,7 +4,10 @@
     "version": "1.0",
     "description": "add some utilities for diffusion.fi",
     "content_scripts": [{
-      "js": ["js/script.js"],
+      "js": [
+        "js/script.js",
+        "js/buttons.js"
+        ],
       "css": [ "css/style.css" ],
       "matches": ["https://app.diffusion.fi/*"]
     }]
