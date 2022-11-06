@@ -1,31 +1,22 @@
+function createElement_fct(document, type, className, text) {
+    var apyText = document.createElement(type);
+
+    apyText.className = className;
+    apyText.innerHTML = text;
+    return (apyText);
+}
+
 const insertAfter = (newNode, referenceNode) => {
     if (referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 };
 
-function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-        const observer = new MutationObserver(mutations => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
-        });
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
-}
-
 function checkPageUrl(strInd, strRe) {
     const urlIndex = window.location.href;
     var urlIndex1 = 0;
     var urlIndex2 = 0;
+
     if (strInd != false)
         urlIndex1 = urlIndex.indexOf(strInd);
     if (strRe != false)
@@ -41,19 +32,19 @@ function pageSwap(document) {
     button50Percents(document)
 }
 
-function pageFarm() {
-    alert("FARM PAGE");
+async function pageFarm(document) {
+    const apyTitle = createElement_fct(document, 'div', "sc-kAzzGY ezqlXG css-1l5pk9w", "APY");
+    const apyText = createElement_fct(document, 'div', "sc-kAzzGY cVbXJ css-59zb50", "6294%");
+    const titleParty = await waitForElm_byClassName('sc-kAzzGY ezqlXG css-1l5pk9w', 2);
+    const textPercents = await waitForElm_byClassName('sc-kAzzGY cVbXJ css-59zb50', 1);
+
+    insertAfter(apyTitle, titleParty);
+    insertAfter(apyText, textPercents);
 }
 
 window.addEventListener('load',() => {
-    // create50PercentsButton(document)
-
-    // const buttonOnClick = document.querySelector("#swap-currency-input > div > div.sc-7ovl44-5.sc-7ovl44-6.cmwkpY > div > div.sc-kkGfuU.sc-7ad97h-0.sc-7ad97h-4.TXsfB > button.sc-7ovl44-40-50p");
-    // buttonOnClick.addEventListener("click", () => {
-    //     button50Percents(document)
-    // });
-    // if (checkPageUrl("swap", false))
-    pageSwap(document);
-    // if (checkPageUrl("farm/", /[0-99]/g))
-    //     pageFarm();
+    if (checkPageUrl("swap", false))
+        pageSwap(document);
+    if (checkPageUrl("farm/", /[0-99]/g))
+        pageFarm(document);
 });

@@ -6,7 +6,8 @@
     "content_scripts": [{
       "js": [
         "js/script.js",
-        "js/buttons.js"
+        "js/buttons.js",
+        "js/wait.js"
         ],
       "css": [ "css/style.css" ],
       "matches": ["https://app.diffusion.fi/*"]
