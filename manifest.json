@@ -6,9 +6,10 @@
     "content_scripts": [{
       "js": [
         "js/script.js",
-        "js/buttons.js",
         "js/wait.js",
-        "js/apy_algorithm.js"
+        "js/apy_algorithm.js",
+        "js/pages/farm.js",
+        "js/pages/swap.js"
         ],
       "css": [ "css/style.css" ],
       "matches": ["https://app.diffusion.fi/*"]

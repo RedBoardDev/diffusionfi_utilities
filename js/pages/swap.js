@@ -17,3 +17,8 @@ async function button50Percents(document) {
         fillInput.dispatchEvent(change);
     });
 };
+
+function pageSwap(document) {
+    create50PercentsButton(document);
+    button50Percents(document)
+}
