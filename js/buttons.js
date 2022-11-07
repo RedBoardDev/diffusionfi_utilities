@@ -1,6 +1,6 @@
 async function create50PercentsButton(document) {
     const neartag = await waitForElm("#swap-currency-input > div > div.sc-7ovl44-5.sc-7ovl44-6.cmwkpY > div > div.sc-kkGfuU.sc-7ad97h-0.sc-7ad97h-4.TXsfB > div");
-    const button = createElement_fct(document, 'button', '(50%)', "sc-7ovl44-40-50p");
+    const button = createElement_fct(document, 'button', "sc-7ovl44-40-50p", '(50%)');
 
     insertAfter(button, neartag);
 };
