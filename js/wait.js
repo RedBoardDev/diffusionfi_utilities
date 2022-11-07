@@ -1,4 +1,4 @@
-function waitForElm(selector) {
+function waitForElm_byQuerySelector(selector) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));
@@ -38,7 +38,25 @@ function containsNumbers(str) {
     return /[1-9]/.test(str);
   }
 
-function waitForLoadNumber(selector, case_nbr) {
+function waitForLoadNumber_byQuerySelector(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector) && containsNumbers(document.querySelector(selector).textContent)) {
+            return resolve(document.querySelector(selector));
+        }
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector) && containsNumbers(document.querySelector(selector).textContent)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
+function waitForLoadNumber_byClassName(selector, case_nbr) {
     return new Promise(resolve => {
         if (document.getElementsByClassName(selector)[case_nbr] && containsNumbers(document.getElementsByClassName(selector)[case_nbr].textContent)) {
             return resolve(document.getElementsByClassName(selector)[case_nbr]);
