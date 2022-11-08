@@ -1,17 +1,16 @@
-
-
 async function pageFarm_addTitle(document) {
     const neartag_apy = await waitForElm_byClassName('sc-kAzzGY ezqlXG css-1l5pk9w', 2);
     const apyTitle = createElement_fct(document, 'div', "sc-kAzzGY ezqlXG css-1l5pk9w", "APY");
     insertAfter(apyTitle, neartag_apy);
     const neartag_compoundTime = await waitForElm_byClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd", 6);
-    const compoundTimeTitle = createElement_fct(document, 'div', "sc-kAzzGY cVbXJ css-8626y4", "Optimum compound time");
-    insertAfter(compoundTimeTitle, neartag_compoundTime);
+    // const compoundTimeTitle = createElement_fct(document, 'div', "sc-kAzzGY cVbXJ css-8626y4", "Optimum compound time");
+    // insertAfter(compoundTimeTitle, neartag_compoundTime);
 }
 
 async function pageFarm_addAPY(document, nbrOfPeriods, apr, percentsText) {
     const optimumApy = calculateAPY(nbrOfPeriods, apr);
     let apyText;
+
     if (document.getElementsByClassName("sc-kAzzGY cVbXJ css-59zb50")[2]) {
         apyText = document.getElementsByClassName("sc-kAzzGY cVbXJ css-59zb50")[2];
         apyText.textContent = optimumApy.toFixed(2) + "%";
@@ -22,15 +21,21 @@ async function pageFarm_addAPY(document, nbrOfPeriods, apr, percentsText) {
 }
 
 async function pageFarm_addOCT(document, optimumCompoundDays) {
-    const neartag_compoundTime = await waitForElm_byClassName("sc-kAzzGY cVbXJ css-8626y4", 5);
     let compoundTimeText;
-    if (document.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[6]) {
-        OCT_text = document.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[6];
-        OCT_text.textContent = optimumCompoundDays.toFixed(2) + " hours";
+
+    if ((document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[6].textContent).includes("hours")) { // don't work for the moment, it use 'else' all of time
+        compoundTimeText = document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[6];
+        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = optimumCompoundDays.toFixed(2) + " hours";
     } else {
-        compoundTimeText = createElement_fct(document, 'div', "sc-kAzzGY cVbXJ css-8626y4", optimumCompoundDays.toFixed(2) + " hours");
+        const node = document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[5];
+        const neartag_compoundTime = await waitForElm_byClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd", 6);
+        compoundTimeText = node.cloneNode(true);
+        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[0].textContent = "Optimised compound time";
+        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = optimumCompoundDays.toFixed(2) + " hours";
         insertAfter(compoundTimeText, neartag_compoundTime);
     }
+
+    insertAfter(clone_node, neartag_compoundTime);
 }
 
 async function pageFarm(document) {
@@ -48,6 +53,6 @@ async function pageFarm(document) {
 
         pageFarm_addAPY(document, nbrOfPeriods, apr, percentsText);
         pageFarm_addOCT(document, optimumCompoundDays);
-        await delay(1200);
+        await delay(120000);
     }
 }
