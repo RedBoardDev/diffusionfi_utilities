@@ -2,9 +2,6 @@ async function pageFarm_addTitle(document) {
     const neartag_apy = await waitForElm_byClassName('sc-kAzzGY ezqlXG css-1l5pk9w', 2);
     const apyTitle = createElement_fct(document, 'div', "sc-kAzzGY ezqlXG css-1l5pk9w", "APY");
     insertAfter(apyTitle, neartag_apy);
-    const neartag_compoundTime = await waitForElm_byClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd", 6);
-    // const compoundTimeTitle = createElement_fct(document, 'div', "sc-kAzzGY cVbXJ css-8626y4", "Optimum compound time");
-    // insertAfter(compoundTimeTitle, neartag_compoundTime);
 }
 
 async function pageFarm_addAPY(document, nbrOfPeriods, apr, percentsText) {
@@ -23,19 +20,20 @@ async function pageFarm_addAPY(document, nbrOfPeriods, apr, percentsText) {
 async function pageFarm_addOCT(document, optimumCompoundDays) {
     let compoundTimeText;
 
-    if ((document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[6].textContent).includes("hours")) { // don't work for the moment, it use 'else' all of time
-        compoundTimeText = document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[6];
-        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = optimumCompoundDays.toFixed(2) + " hours";
+    if (document.getElementById("compoundtimetext")) {
+        compoundTimeText = document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[7];
+        // compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = optimumCompoundDays.toFixed(2) + " hours";
+        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent =  optimumCompoundDays.toFixed(2) + " hours";
     } else {
         const node = document.getElementsByClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd")[5];
         const neartag_compoundTime = await waitForElm_byClassName("sc-kkGfuU sc-7ad97h-0 sc-7ad97h-1 hXnnJd", 6);
         compoundTimeText = node.cloneNode(true);
+        compoundTimeText.setAttribute("id", "compoundtimetext");
         compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[0].textContent = "Optimised compound time";
-        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = optimumCompoundDays.toFixed(2) + " hours";
+        compoundTimeText.getElementsByClassName("sc-kAzzGY cVbXJ css-8626y4")[1].textContent = "X hours";
         insertAfter(compoundTimeText, neartag_compoundTime);
+        
     }
-
-    insertAfter(clone_node, neartag_compoundTime);
 }
 
 async function pageFarm(document) {

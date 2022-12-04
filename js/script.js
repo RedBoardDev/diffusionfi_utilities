@@ -33,8 +33,3 @@ window.addEventListener('load',() => {
     if (checkPageUrl("farm/", /[0-99]/g))
     pageFarm(document);
 });
-
-// $1,024.97
-// 282%
-// 1569.61%
-

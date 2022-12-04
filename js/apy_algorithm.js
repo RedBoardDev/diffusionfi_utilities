@@ -18,7 +18,6 @@ function calculateOptimumCompoundTime(gasCost, apr, initialInvest) {
     var grossRewards = -99999999;
     var continueWhile = true;
     var everyXfrequency = 0;
-    var test = 0;
 
     while (optimumCompoundTime < 10000 && continueWhile) {
         nbrOfPeriods = calculatePeriods(optimumCompoundTime);
